@@ -1,21 +1,43 @@
 import React, { useState } from 'react'
-import { Button, Form, Grid, Header, Icon, Segment,Card } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Icon, Segment,Message } from 'semantic-ui-react'
 import  {useHistory} from 'react-router-dom'
+import $ from 'jquery'
 
 const Login =function(){
 
   const [email,setEmail]=useState('')
   const [password,setPassword]=useState('')
-  const history = useHistory()
+  const [error,setError]=useState(false)
   const [userObj,setUser]=useState('')
+  const history = useHistory()
   const login=function(){
-    setUser({email:email,password:password})
-    history.push('/Dashboard')
+    if(email=='' || password==''){
+      setError(true)
+      setTimeout(function() { $("#hideDiv").fadeIn('slow') })
+    }
+    else{
+      setUser({email:email,password:password})
+      localStorage.setItem('email',email)
+      history.push('/Dashboard')
+    }
   }
 
     return(
           <div className="App-header">
-           <Grid textAlign='center' style={{ height: '100vh'}} verticalAlign='middle'>
+          
+               {error &&
+                  <div id='hideDiv'>
+                    <Message
+                  error
+                  id='error-id'
+                  header='Action Forbidden'
+                  content='Invalid email or password'
+                  style={{width:'330px'}}
+                  />
+                  </div>
+                }
+            
+           <Grid textAlign='center' style={{ height: '80vh'}} verticalAlign='middle'>
              
            <Grid.Column style={{
             backgroundColor: "white",

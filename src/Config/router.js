@@ -20,6 +20,7 @@ function router(props) {
     // }
     // const currentPath = window.location.pathname.length === 1 ? 'Home' : window.location.pathname
     // console.log(currentPath)
+    
     return (
         <div>
             <Router>

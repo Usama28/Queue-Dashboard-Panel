@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,7 +16,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import { Button } from '@material-ui/core';
+import { useHistory } from "react-router-dom";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -56,12 +59,13 @@ function Dashboard(props) {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [value, setValue] = useState(0);
+  const history=useHistory()
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+ 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -83,10 +87,35 @@ function Dashboard(props) {
           </ListItem>
         ))}
       </List>
+          <div style={{position:'absolute',bottom:0}}>
+          <BottomNavigation
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            showLabels
+            className={classes.root}
+          >
+            {/* <BottomNavigationAction icon={<PersonOutlinedIcon/>} /> */}
+            
+            <BottomNavigationAction label={localStorage.getItem('email')} style={{fontWeight:'bold',color:'black', marginLeft:'5%'}}/>
+            <BottomNavigationAction  label={<Button
+                 variant="outlined" 
+                 size="small"
+                 onClick={()=>history.push('/')}
+                 >
+                   Logout
+                   </Button>} />
+          </BottomNavigation>
+          </div>
+
+     
     </div>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
+
+   
 
   return (
     <div className={classes.root}>
