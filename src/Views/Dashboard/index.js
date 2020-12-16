@@ -18,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import { Button } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 const drawerWidth = 240;
@@ -68,8 +69,12 @@ function Dashboard(props) {
  
   const drawer = (
     <div>
-      <div className={classes.toolbar} />
-      <Divider />
+       <div style={{display:'flex',justifyContent:'space-around',margin: '10% 15%',}}>
+          <AccountCircleOutlinedIcon size='medium'/>
+          <p>{localStorage.getItem('email')}</p>
+        </div>
+        <Divider />       
+     
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem button key={text}>
@@ -96,8 +101,6 @@ function Dashboard(props) {
             showLabels
             className={classes.root}
           >
-            {/* <BottomNavigationAction icon={<PersonOutlinedIcon/>} /> */}
-            
             <BottomNavigationAction label={localStorage.getItem('email')} style={{fontWeight:'bold',color:'black', marginLeft:'5%'}}/>
             <BottomNavigationAction  label={<Button
                  variant="outlined" 
