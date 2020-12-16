@@ -1,27 +1,21 @@
 import React,{useState} from 'react';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
+import {
+        AppBar , List ,ListItem , ListItemIcon , ListItemText , Hidden,BottomNavigationAction,Typography,
+        makeStyles, useTheme,Toolbar ,Divider ,Drawer ,CssBaseline ,IconButton ,BottomNavigation,Button
+      } 
+from '@material-ui/core';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import { Icon } from 'semantic-ui-react'
-import { Button } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
+import Doctors from "../Doctors"
+import Schedule from "../DoctorSchedule"
+import Patients from "../Patients"
+import Appointments from "../Appointment"
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -68,10 +62,26 @@ function Dashboard(props) {
   const [schedule, setSchedule] = useState(false);
   const [value, setValue] = useState(0);
   const history=useHistory()
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
- 
+ const getPatients=function(){
+    setPatients(true)
+    history.push('/Patients')
+  }
+  const getDoctors=function(){
+    setDoctors(true)
+    history.push('/Doctors')
+  }
+  const getAppointment=function(){
+    setAppointments(true)
+    history.push('/Appointments')
+  }
+  const getSchedule=function(){
+    setSchedule(true)
+    history.push('/DoctorsSchedule')
+  }
   const drawer = (
     <div>
        <div style={{display:'flex',justifyContent:'space-around',margin: '10% 15%',}}>
@@ -81,25 +91,25 @@ function Dashboard(props) {
         <Divider />       
      
       <List>
-          <ListItem button onClick={()=>history.push('/Patients')}>
+          <ListItem button onClick={getPatients}>
               <ListItemIcon> 
                     <Icon name='wheelchair'  size='large' />
               </ListItemIcon>
               <ListItemText primary='Patients' />
           </ListItem>
-          <ListItem button onClick={()=>history.push('/Doctors')}>
+          <ListItem button onClick={getDoctors}>
             <ListItemIcon> 
                   <Icon name='doctor'  size='large' />
             </ListItemIcon>
             <ListItemText primary='Doctors' />
           </ListItem>
-          <ListItem button onClick={()=>history.push('/Appointments')}>
+          <ListItem button onClick={getAppointment}>
             <ListItemIcon> 
             <Icon name='calendar alternate outline'  size='large'/> 
             </ListItemIcon>
             <ListItemText primary='Appointments' />
         </ListItem>
-        <ListItem button onClick={()=>history.push('/DoctorsSchedule')}>
+        <ListItem button onClick={getSchedule}>
           <ListItemIcon> 
                 <Icon name='calendar check outline'  size='large' />
           </ListItemIcon>
@@ -197,29 +207,10 @@ function Dashboard(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-          facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-          gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-          donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-          Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-          imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-          arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-          donec massa sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-          facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-          tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-          consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-          vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-          hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-          tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-          nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-          accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+            {patients && <Patients/>}
+            {doctors && <Doctors/>}
+            {appointment && <Appointments/>}
+            {schedule && <Schedule/>}
       </main>
     </div>
   );

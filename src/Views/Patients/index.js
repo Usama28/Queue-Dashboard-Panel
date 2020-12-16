@@ -7,7 +7,7 @@ function Patients() {
     return(
         <div>
         
-           hone
+           Patients
           
         </div>
     )

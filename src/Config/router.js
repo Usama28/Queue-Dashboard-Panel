@@ -34,16 +34,17 @@ function router(props) {
                     <Route path="/Dashboard">
                         <Dashboard />
                     </Route>
-                    <Route path="/Patients">
+                    
+                    <Route path='/Patients'>
                         <Patients />
                     </Route>
                     <Route path="/Doctors">
                         <Doctors />
                     </Route>
-                    <Route path="/Appointments">
+                    <Route path="/Dashboard/Appointments">
                         <Appointments />
                     </Route>
-                    <Route path="/DoctorsSchedule">
+                    <Route path="/Dashboard/DoctorsSchedule">
                         <Schedule />
                     </Route>
                 </Switch>

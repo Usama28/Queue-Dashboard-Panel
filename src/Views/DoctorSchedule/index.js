@@ -7,7 +7,7 @@ function Schedule() {
     return(
         <div>
         
-           hone
+           shcedule
           
         </div>
     )
