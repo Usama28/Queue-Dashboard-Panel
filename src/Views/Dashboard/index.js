@@ -19,6 +19,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
+import { Icon } from 'semantic-ui-react'
 import { Button } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 const drawerWidth = 240;
@@ -61,6 +62,10 @@ function Dashboard(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [patients, setPatients] = useState(false);
+  const [doctors, setDoctors] = useState(false);
+  const [appointment, setAppointments] = useState(false);
+  const [schedule, setSchedule] = useState(false);
   const [value, setValue] = useState(0);
   const history=useHistory()
   const handleDrawerToggle = () => {
@@ -70,18 +75,38 @@ function Dashboard(props) {
   const drawer = (
     <div>
        <div style={{display:'flex',justifyContent:'space-around',margin: '10% 15%',}}>
-          <AccountCircleOutlinedIcon size='medium'/>
+          <AccountCircleOutlinedIcon fontSize='medium'/>
           <p>{localStorage.getItem('email')}</p>
         </div>
         <Divider />       
      
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+          <ListItem button onClick={()=>history.push('/Patients')}>
+              <ListItemIcon> 
+                    <Icon name='wheelchair'  size='large' />
+              </ListItemIcon>
+              <ListItemText primary='Patients' />
           </ListItem>
-        ))}
+          <ListItem button onClick={()=>history.push('/Doctors')}>
+            <ListItemIcon> 
+                  <Icon name='doctor'  size='large' />
+            </ListItemIcon>
+            <ListItemText primary='Doctors' />
+          </ListItem>
+          <ListItem button onClick={()=>history.push('/Appointments')}>
+            <ListItemIcon> 
+            <Icon name='calendar alternate outline'  size='large'/> 
+            </ListItemIcon>
+            <ListItemText primary='Appointments' />
+        </ListItem>
+        <ListItem button onClick={()=>history.push('/DoctorsSchedule')}>
+          <ListItemIcon> 
+                <Icon name='calendar check outline'  size='large' />
+          </ListItemIcon>
+          <ListItemText primary='Doctor Schedule' />
+        </ListItem>
+           
+     
       </List>
       <Divider />
       <List>

@@ -6,9 +6,11 @@ import {
     Redirect
 } from "react-router-dom";
 import Login from "../Views/Login";
-import Home from "../Views/Home";
 import Dashboard from "../Views/Dashboard"
-
+import Doctors from "../Views/Doctors"
+import Schedule from "../Views/DoctorSchedule"
+import Patients from "../Views/Patients"
+import Appointments from "../Views/Appointment"
 
 function router(props) {
 
@@ -29,13 +31,21 @@ function router(props) {
                     <Route path="/" exact>
                         <Login/>
                     </Route>
-                    <Route path="/Home">
-                         <Home />
-                    </Route>
                     <Route path="/Dashboard">
                         <Dashboard />
                     </Route>
-                
+                    <Route path="/Patients">
+                        <Patients />
+                    </Route>
+                    <Route path="/Doctors">
+                        <Doctors />
+                    </Route>
+                    <Route path="/Appointments">
+                        <Appointments />
+                    </Route>
+                    <Route path="/DoctorsSchedule">
+                        <Schedule />
+                    </Route>
                 </Switch>
             </Router>
         </div >
