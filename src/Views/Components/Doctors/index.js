@@ -81,11 +81,7 @@ function Doctor() {
             )
           })}  
         </Grid>    
-          {/* <div  style={{display:'flex',justifyContent:'center', margin:'4% 12%' , position:'absolute',bottom:3}}>
-            <Button size='tiny' color='black'>
-              Add Doctor
-            </Button>
-          </div> */}
+
           <BottomNavigation style={{backgroundColor:'transparent'}}>
             <BottomNavigationAction icon={
                   <Button size='tiny' color='black'>
