@@ -100,9 +100,9 @@ function Dashboard(props) {
   const [loginShow,setLogin]=useState(false) 
   const drawer = (
     <div>
-        <div style={{display:'flex',justifyContent:'space-around',margin: '10% 15%',}}>
-          <AccountCircleOutlinedIcon fontSize='medium'/>
-          <p>{localStorage.getItem('email')}</p>
+        <div style={{display:'flex',justifyContent:'space-around',margin: '5% 25%',}}>
+          <Icon name='stethoscope' size='huge' color='green' style={{marginTop:'5%'}}/>
+         <span style={{fontFamily:'Lato' ,fontWeight:'bolder' , fontSize:'15px'}}> The<br/> Medi<br/> Queue </span>
         </div>
         <Divider />        
         <List>
