@@ -11,13 +11,20 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import { Icon } from 'semantic-ui-react'
 import { useHistory } from "react-router-dom";
-import Doctors from "../Doctors"
-import Schedule from "../DoctorSchedule"
-import Patients from "../Patients"
-import Appointments from "../Appointment"
+import Login from "../Login"
+import Doctors from "../Components/Doctors"
+import Schedule from "../Components/DoctorSchedule"
+import Patients from "../Components/Patients"
+import Appointments from "../Components/Appointment"
+import {
+  //  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+import Router from '../../Config/router'
 
 const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -56,68 +63,58 @@ function Dashboard(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [patients, setPatients] = useState(false);
-  const [doctors, setDoctors] = useState(false);
-  const [appointment, setAppointments] = useState(false);
-  const [schedule, setSchedule] = useState(false);
   const [value, setValue] = useState(0);
+  const sideMenu=[
+    {
+      name:'Dashboard',
+      link:'/dashboard',
+      icon:<Icon name='home'  size='large' />
+    },
+    {
+      name:'Patients',
+      link:'/patients',
+      icon:<Icon name='wheelchair'  size='large' />
+    },
+    {
+      name:'Doctors',
+      link:'/doctors',
+      icon:<Icon name='doctor'  size='large' />
+    },
+    {
+      name:'Appointments',
+      link:'/appointments',
+      icon:<Icon name='calendar alternate outline'  size='large'/> 
+    },
+    {
+      name:'Doctor Schedule',
+      link:'/schedule',
+      icon:<Icon name='calendar check outline'  size='large' />
+    }
+  ]
   const history=useHistory()
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
- const getPatients=function(){
-    setPatients(true)
-    history.push('/Patients')
-  }
-  const getDoctors=function(){
-    setDoctors(true)
-    history.push('/Doctors')
-  }
-  const getAppointment=function(){
-    setAppointments(true)
-    history.push('/Appointments')
-  }
-  const getSchedule=function(){
-    setSchedule(true)
-    history.push('/DoctorsSchedule')
-  }
+ 
+  const [loginShow,setLogin]=useState(false) 
   const drawer = (
     <div>
-       <div style={{display:'flex',justifyContent:'space-around',margin: '10% 15%',}}>
+        <div style={{display:'flex',justifyContent:'space-around',margin: '10% 15%',}}>
           <AccountCircleOutlinedIcon fontSize='medium'/>
           <p>{localStorage.getItem('email')}</p>
         </div>
-        <Divider />       
-     
-      <List>
-          <ListItem button onClick={getPatients}>
-              <ListItemIcon> 
-                    <Icon name='wheelchair'  size='large' />
-              </ListItemIcon>
-              <ListItemText primary='Patients' />
-          </ListItem>
-          <ListItem button onClick={getDoctors}>
-            <ListItemIcon> 
-                  <Icon name='doctor'  size='large' />
-            </ListItemIcon>
-            <ListItemText primary='Doctors' />
-          </ListItem>
-          <ListItem button onClick={getAppointment}>
-            <ListItemIcon> 
-            <Icon name='calendar alternate outline'  size='large'/> 
-            </ListItemIcon>
-            <ListItemText primary='Appointments' />
-        </ListItem>
-        <ListItem button onClick={getSchedule}>
-          <ListItemIcon> 
-                <Icon name='calendar check outline'  size='large' />
-          </ListItemIcon>
-          <ListItemText primary='Doctor Schedule' />
-        </ListItem>
-           
-     
-      </List>
+        <Divider />        
+        <List>
+        {sideMenu.map((item,index)=>{
+          return(
+              <ListItem button onClick={()=>history.push(item.link)}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.name} />
+              </ListItem>
+          )})}
+        </List>
+         
       <Divider />
       <List>
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
@@ -140,7 +137,7 @@ function Dashboard(props) {
             <BottomNavigationAction  label={<Button
                  variant="outlined" 
                  size="small"
-                 onClick={()=>history.push('/')}
+                 onClick={()=>setLogin(true)}
                  >
                    Logout
                    </Button>} />
@@ -153,10 +150,13 @@ function Dashboard(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
-   
-
+  
+    // const loginFunction=function(){
+    //   setLogin(true)
+    // }
   return (
-    <div className={classes.root}>
+    <>
+      <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
@@ -207,12 +207,16 @@ function Dashboard(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-            {patients && <Patients/>}
-            {doctors && <Doctors/>}
-            {appointment && <Appointments/>}
-            {schedule && <Schedule/>}
-      </main>
+            <Switch>
+                    <Route path="/patients" component={Patients} />
+                    <Route path="/doctors" component={Doctors} />
+                    <Route path="/appointments" component={Appointments} />
+                    <Route path="/schedule" component={Schedule} />
+            </Switch>
+
+        </main>
     </div>
+    </>
   );
 }
 

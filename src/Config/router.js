@@ -7,48 +7,37 @@ import {
 } from "react-router-dom";
 import Login from "../Views/Login";
 import Dashboard from "../Views/Dashboard"
-import Doctors from "../Views/Doctors"
-import Schedule from "../Views/DoctorSchedule"
-import Patients from "../Views/Patients"
-import Appointments from "../Views/Appointment"
+import Doctors from "../Views/Components/Doctors"
+import Schedule from "../Views/Components/DoctorSchedule"
+import Patients from "../Views/Components/Patients"
+import Appointments from "../Views/Components/Appointment"
 
-function router(props) {
-
-    // const { isLoggedIn, isLoading } = props
-    // if (isLoading) {
-    //     return <div style={{ textAlign: 'center', marginTop: '10%' }}>
-    //         <img width='300' src="https://i.gifer.com/7SMT.gif" />
-    //     </div>
-    // }
-    // const currentPath = window.location.pathname.length === 1 ? 'Home' : window.location.pathname
-    // console.log(currentPath)
+function router() {
     
     return (
         <div>
-            <Router>
-
+              <Router>
                 <Switch>
-                    <Route path="/" exact>
-                        <Login/>
-                    </Route>
-                    <Route path="/Dashboard">
-                        <Dashboard />
-                    </Route>
-                    
-                    <Route path='/Patients'>
-                        <Patients />
-                    </Route>
-                    <Route path="/Doctors">
-                        <Doctors />
-                    </Route>
-                    <Route path="/Dashboard/Appointments">
-                        <Appointments />
-                    </Route>
-                    <Route path="/Dashboard/DoctorsSchedule">
-                        <Schedule />
-                    </Route>
+                        <Route path='/' exact >
+                            <Login />
+                        </Route>
+                        <Route path='/dashboard'>
+                            <Dashboard />
+                        </Route>
+                        {/* <Route path='/patients'>
+                            <Patients />
+                        </Route>
+                        <Route path="/doctors">
+                            <Doctors />
+                        </Route>
+                        <Route path="/appointments">
+                            <Appointments />
+                        </Route>
+                        <Route path="/schedule">
+                            <Schedule />
+                        </Route> */}
                 </Switch>
-            </Router>
+              </Router>
         </div >
     )
 }
