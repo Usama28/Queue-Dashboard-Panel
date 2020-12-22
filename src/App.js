@@ -4,6 +4,9 @@ import {  BrowserRouter as Router, Route,Switch} from "react-router-dom";
 import Login from './Views/Login'
 import Dashboard from "./Views/Dashboard";
 import RouterFunc from './Config/router'
+import { Provider } from 'react-redux'
+import  store  from './store/store'
+
 function App() {
 
   const [userValue,setValue]=useState(false)
@@ -14,10 +17,12 @@ function App() {
   
   return (
     <div className="App">
-     {!userValue ? <RouterFunc user={user}/> : 
-     <Router>
-        <Dashboard />
-     </Router>}
+      {/* <Provider store={store}> */}
+          {!userValue ? <RouterFunc user={user}/> : 
+          <Router>
+              <Dashboard />
+          </Router>}
+     {/* </Provider> */}
     </div>
   );
 }

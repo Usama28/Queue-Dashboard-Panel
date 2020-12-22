@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react'
 import { Icon, Button, Image , Card ,Grid,Modal ,Form,Input,Dropdown} from 'semantic-ui-react'
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import {connect } from 'react-redux'
 
 function exampleReducer(state, action) {
   switch (action.type) {
@@ -228,4 +229,11 @@ function Doctor() {
       </div>
     )
 }
+
 export default Doctor
+// const mapDispatchToProps=(dispatch)=>{
+//   return{
+//       setDoctor:(doctorList)=>dispatch(setDoctor(doctorList)) 
+//   }
+// }
+// export default connect(null,mapDispatchToProps)(Doctor)
