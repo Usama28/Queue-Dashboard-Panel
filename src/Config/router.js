@@ -12,14 +12,14 @@ import Schedule from "../Views/Components/DoctorSchedule"
 import Patients from "../Views/Components/Patients"
 import Appointments from "../Views/Components/Appointment"
 
-function router() {
+function router({user}) {
     
     return (
         <div>
               <Router>
                 <Switch>
                         <Route path='/' exact >
-                            <Login />
+                            <Login user={user}/>
                         </Route>
                         <Route path='/dashboard'>
                             <Dashboard />

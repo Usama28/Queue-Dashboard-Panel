@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { Button, Form, Grid, Header, Icon, Segment,Message } from 'semantic-ui-react'
 import  {useHistory} from 'react-router-dom'
 import $ from 'jquery'
+import {  BrowserRouter as Router,Switch,Route} from "react-router-dom";
+import Dashboard from '../Dashboard'
 
-const Login =function(){
+const Login =function({setValue,user}){
 
   const [email,setEmail]=useState('')
   const [password,setPassword]=useState('')
@@ -17,8 +19,9 @@ const Login =function(){
     }
     else{
       setUser({email:email,password:password})
+      user(email)
       localStorage.setItem('email',email)
-      history.push('/Dashboard')
+      history.push('/dashboard')
     }
   }
 

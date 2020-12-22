@@ -28,14 +28,8 @@ function Doctor() {
   const [patientName,setPatientName]=useState('')
   const [disease,setDisease]=useState('')
   const [duration,setDuration]=useState('')
-  const options = [
-    { key: 1, text: '1 Day', value: 1 },
-    { key: 2, text: '2-5 Days', value: 2 },
-    { key: 3, text: '1 Week', value: 3 },
-    { key: 4, text: 'More Than a Week', value: 4 },
-    { key: 5, text: '1 Month', value: 5 },
-    { key: 6, text: 'More Than a Month', value: 6 },
-  ]
+  const [image,setImage]=useState('')
+  const [patientList,setPatientList]=useState([])
   const [colors,setColors]=useState(['#e0eff6','#fcf5db', '#f9edef','#fcf5db','#eeebf4','#ebf3e8','#ebf3e8'])
   const [doctorList,setDoctorList]=useState([
         {
@@ -77,8 +71,24 @@ function Doctor() {
     setType('')
     dispatch({ type: 'CLOSE_MODAL', dimmer: 'blurring' })
   }
-    
-    return(
+
+  const addPatient=function () {
+    const temp=[...patientList]
+    temp.push({
+      name:patientName,
+      disease:disease,
+      duration:duration,
+      image:image, 
+    })
+    setPatientList(temp)
+    setPatientName('')
+    setDisease('')
+    setDuration('')
+    setImage('')
+    setSecondOpen(false)
+    setFirstOpen(false)
+  }
+  return(
       <div> 
         <Grid  columns={4}  stackable >
           {doctorList.map(({image,name,type,color},index)=>{
@@ -137,11 +147,18 @@ function Doctor() {
                 </Form.Field>
                 <Form.Field>
                   <label>Disease Duration</label>
-                  <Dropdown text='' options={options}  fluid  selection onChange={(e)=>setDuration(e.target.value)}/>
+                  <select onChange={(e)=>setDuration(e.target.value)}>
+                    <option></option>
+                    <option>1 Day</option>
+                    <option>2-5 Days</option>
+                    <option>1 Week</option>
+                    <option>2-3 Weeks</option>
+                    <option>1 Month</option>
+                  </select> 
                 </Form.Field>
                 <Form.Field>
                   <label>Image</label>
-                  <Input placeholder='Enter Image' type='file'/>
+                  <Input placeholder='Enter Image' type='file' onChange={(e)=>setImage(e.target.value)}/>
                 </Form.Field>
               </Form>
             </Modal.Content>
@@ -164,7 +181,7 @@ function Doctor() {
                 <Button
                   icon='check'
                   content='All Done'
-                  onClick={() => setSecondOpen(false)}
+                  onClick={addPatient}
                 />
               </Modal.Actions>
             </Modal>
@@ -175,7 +192,7 @@ function Doctor() {
             dimmer={dimmer}
             open={open}
             onClose={() => dispatch({ type: 'CLOSE_MODAL' })}
-            style={{width:'340px'}}
+            size='mini'
           >
             <Modal.Header>Doctor Details</Modal.Header>
             <Modal.Content>

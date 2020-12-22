@@ -8,7 +8,6 @@ from '@material-ui/core';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import { Icon } from 'semantic-ui-react'
 import { useHistory } from "react-router-dom";
 import Login from "../Login"
@@ -158,7 +157,7 @@ function Dashboard(props) {
     <>
       <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar position="fixed" className={classes.appBar} style={{zIndex:'999'}}>
         <Toolbar>
           <IconButton
             color="inherit"
