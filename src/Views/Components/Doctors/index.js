@@ -21,6 +21,8 @@ function Doctor() {
     dimmer: undefined,
   })
   const { open, dimmer } = state
+  const [firstOpen, setFirstOpen] = useState(false)
+  const [secondOpen, setSecondOpen] = useState(false)
   const [name,setName]=useState('')
   const [type,setType]=useState('')
   const [colors,setColors]=useState(['#e0eff6','#fcf5db', '#f9edef','#fcf5db','#eeebf4','#ebf3e8','#ebf3e8'])
@@ -38,13 +40,13 @@ function Doctor() {
            color:colors[Math.floor(Math.random()*8)]
          },
         {
-          image:'https://purepng.com/public/uploads/large/purepng.com-doctordoctorsdoctors-and-nursesclinicianmedical-practitionernotepadfemale-1421526857295nzsqt.png',
+          image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGAmVY0MUa03zHNdikqqdyfcBF52fqOZaKpQ&usqp=CAU',
           name:'Dr. Katherin',
           type:'Gyanocologist',
           color:colors[Math.floor(Math.random()*8)]
         },
          {
-          image:'https://www.featurepics.com/StockImage/20060916/lady-doctor-with-stethoscope-stock-photo-91364.jpg',
+          image:'https://images.theconversation.com/files/304957/original/file-20191203-66986-im7o5.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop',
           name:'Dr. Sophie',
           type:'Surgeon',
           color:colors[Math.floor(Math.random()*8)]
@@ -90,7 +92,11 @@ function Doctor() {
                     </div>
                     
                     <div style={{ position:'absolute',bottom:3, margin:'2% 12%'}}>
-                      <Button basic size='tiny' color='black'>
+                      <Button basic 
+                      size='tiny'
+                       color='black'
+                       onClick={() => setFirstOpen(true)}
+                       >
                         Book Appointment
                       </Button>
                     </div>
@@ -99,8 +105,48 @@ function Doctor() {
               </Grid.Column>
             )
           })}  
-        </Grid>  
+        </Grid> 
+         {/*Patient Modal  */}
+         <Modal
+            onClose={() => setFirstOpen(false)}
+            onOpen={() => setFirstOpen(true)}
+            open={firstOpen}
+          >
+            <Modal.Header>Patient Details</Modal.Header>
+            <Modal.Content image>
+              <div className='image'>
+                <Icon name='right arrow' />
+              </div>
+              <Modal.Description>
+                <p>We have more to share with you. Follow us along to modal 2</p>
+              </Modal.Description>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button onClick={() => setSecondOpen(true)} primary>
+                Proceed <Icon name='right chevron' />
+              </Button>
+            </Modal.Actions>
 
+            <Modal
+              onClose={() => setSecondOpen(false)}
+              open={secondOpen}
+              size='small'
+            >
+              <Modal.Header>Modal #2</Modal.Header>
+              <Modal.Content>
+                <p>That's everything!</p>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button
+                  icon='check'
+                  content='All Done'
+                  onClick={() => setSecondOpen(false)}
+                />
+              </Modal.Actions>
+            </Modal>
+          </Modal>
+          
+        {/* doctor modal */}
          <Modal
             dimmer={dimmer}
             open={open}
