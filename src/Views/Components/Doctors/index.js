@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import { Icon, Button, Image , Card ,Grid,Modal ,Form,Input} from 'semantic-ui-react'
+import { Icon, Button, Image , Card ,Grid,Modal ,Form,Input,Dropdown} from 'semantic-ui-react'
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
@@ -25,6 +25,17 @@ function Doctor() {
   const [secondOpen, setSecondOpen] = useState(false)
   const [name,setName]=useState('')
   const [type,setType]=useState('')
+  const [patientName,setPatientName]=useState('')
+  const [disease,setDisease]=useState('')
+  const [duration,setDuration]=useState('')
+  const options = [
+    { key: 1, text: '1 Day', value: 1 },
+    { key: 2, text: '2-5 Days', value: 2 },
+    { key: 3, text: '1 Week', value: 3 },
+    { key: 4, text: 'More Than a Week', value: 4 },
+    { key: 5, text: '1 Month', value: 5 },
+    { key: 6, text: 'More Than a Month', value: 6 },
+  ]
   const [colors,setColors]=useState(['#e0eff6','#fcf5db', '#f9edef','#fcf5db','#eeebf4','#ebf3e8','#ebf3e8'])
   const [doctorList,setDoctorList]=useState([
         {
@@ -111,18 +122,31 @@ function Doctor() {
             onClose={() => setFirstOpen(false)}
             onOpen={() => setFirstOpen(true)}
             open={firstOpen}
+            size='small'
           >
             <Modal.Header>Patient Details</Modal.Header>
-            <Modal.Content image>
-              <div className='image'>
-                <Icon name='right arrow' />
-              </div>
-              <Modal.Description>
-                <p>We have more to share with you. Follow us along to modal 2</p>
-              </Modal.Description>
+            <Modal.Content>
+              <Form>
+                <Form.Field>
+                  <label>Name</label>
+                  <Input placeholder='Enter Full Name' onChange={(e)=>setPatientName(e.target.value)} />
+                </Form.Field>
+                <Form.Field>
+                  <label>Disease</label>
+                  <Input placeholder='Enter Disease Name' onChange={(e)=>setDisease(e.target.value)}/>
+                </Form.Field>
+                <Form.Field>
+                  <label>Disease Duration</label>
+                  <Dropdown text='' options={options}  fluid  selection onChange={(e)=>setDuration(e.target.value)}/>
+                </Form.Field>
+                <Form.Field>
+                  <label>Image</label>
+                  <Input placeholder='Enter Image' type='file'/>
+                </Form.Field>
+              </Form>
             </Modal.Content>
             <Modal.Actions>
-              <Button onClick={() => setSecondOpen(true)} primary>
+              <Button onClick={() => setSecondOpen(true)} secondary>
                 Proceed <Icon name='right chevron' />
               </Button>
             </Modal.Actions>
@@ -132,7 +156,7 @@ function Doctor() {
               open={secondOpen}
               size='small'
             >
-              <Modal.Header>Modal #2</Modal.Header>
+              <Modal.Header>Enter Payment Details</Modal.Header>
               <Modal.Content>
                 <p>That's everything!</p>
               </Modal.Content>
