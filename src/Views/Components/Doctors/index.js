@@ -3,6 +3,7 @@ import { Icon, Button, Image , Card ,Grid,Modal ,Form,Input,Dropdown} from 'sema
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {connect } from 'react-redux'
+import './index.css'
 
 function exampleReducer(state, action) {
   switch (action.type) {
@@ -172,17 +173,45 @@ function Doctor() {
             <Modal
               onClose={() => setSecondOpen(false)}
               open={secondOpen}
-              size='small'
+              size= 'tiny'
             >
               <Modal.Header>Enter Payment Details</Modal.Header>
               <Modal.Content>
-                <p>That's everything!</p>
+                <div className='payment'>
+                  <a><Icon name='cc visa'  size='huge'  color='blue'/></a>
+                  <a><Icon name='cc mastercard'  size='huge'  color='orange'/></a>
+                  <a><Icon name='paypal card'  size='huge'  color='blue'/></a>
+                  <a><Icon name='credit card outline'  size='huge'  color='red'/></a>
+                </div>
+                <Form>
+                <Form.Field>
+                  <label>Card Number</label>
+                  <Input placeholder='1234 5567 2910 3456' size='tiny'/>
+                </Form.Field>
+                <Form.Field>
+                  <label>Name on Card</label>
+                  <Input placeholder='Jhon Doe' size='tiny'/>
+                </Form.Field>
+                <Form.Group widths='equal'>
+                  <Form.Input
+                    fluid
+                    label='Expiry Date'
+                    type='date'
+                    size='tiny'
+                  />
+                   <Form.Input icon label='Security Code' placeholder='* * * *' size='tiny'>
+                    <input type='password'/>
+                    <Icon name='question circle' size='large' />
+                  </Form.Input>
+                </Form.Group>
+                </Form>
               </Modal.Content>
-              <Modal.Actions>
+              <Modal.Actions style={{textAlign:'center'}}>
                 <Button
                   icon='check'
-                  content='All Done'
+                  content='Confirm Appointment'
                   onClick={addPatient}
+                  secondary basic
                 />
               </Modal.Actions>
             </Modal>
