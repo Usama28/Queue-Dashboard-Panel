@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import { Icon, Button, Image , Card ,Grid,Modal ,Form,Input,Dropdown} from 'semantic-ui-react'
+import { Icon, Button, Image , Card ,Grid,Modal ,Form,Input,Accordion} from 'semantic-ui-react'
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {connect } from 'react-redux'
@@ -165,7 +165,7 @@ function Doctor() {
               </Form>
             </Modal.Content>
             <Modal.Actions>
-              <Button onClick={() => setSecondOpen(true)} secondary>
+              <Button onClick={() => setSecondOpen(true)} basic color='green'>
                 Proceed <Icon name='right chevron' />
               </Button>
             </Modal.Actions>
@@ -177,7 +177,7 @@ function Doctor() {
             >
               <Modal.Header>Enter Payment Details</Modal.Header>
               <Modal.Content>
-                <div className='payment'>
+                <div className='payment' Button>
                   <a><Icon name='cc visa'  size='huge'  color='blue'/></a>
                   <a><Icon name='cc mastercard'  size='huge'  color='orange'/></a>
                   <a><Icon name='paypal card'  size='huge'  color='blue'/></a>
