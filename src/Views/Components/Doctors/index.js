@@ -21,8 +21,10 @@ function exampleReducer(state, action) {
 }
 
 function Doctor(props) {
-
-  
+  const {getDoctors,setDoctor,setPatients}=props
+  useEffect(()=>{
+    setDoctor(getDoctors)
+  },[])
 
   const [state, dispatch] = React.useReducer(exampleReducer, {
     open: false,
@@ -81,7 +83,7 @@ function Doctor(props) {
     setType('')
     dispatch({ type: 'CLOSE_MODAL', dimmer: 'blurring' })
 // redux
-    props.setDoctor(doctorList)
+    setDoctor(temp)
     
   }
 
@@ -107,12 +109,12 @@ function Doctor(props) {
     setSecondOpen(false)
     setFirstOpen(false)
     // redux
-    props.setPatients(patientList)
+    setPatients(temp)
   }
   return(
       <div> 
         <Grid  columns={4}  stackable >
-          {doctorList.map(({image,name,type,color},index)=>{
+          {getDoctors && getDoctors.map(({image,name,type,color},index)=>{
             return(
               <Grid.Column>
                 <Card style={{backgroundColor:color ,textAlign:'center', width:'230px' , height:'40vh'}}>
@@ -300,7 +302,11 @@ function Doctor(props) {
 }
 
 // export default Doctor
-
+const mapStateToProps=(state)=>{
+  return{
+    getDoctors:state.doctorReducer.doctors
+  }
+}
 const mapDispatchToProps=(dispatch)=>{
   return{
       setDoctor:doctors=>dispatch(setDoctor(doctors)) ,
@@ -308,4 +314,4 @@ const mapDispatchToProps=(dispatch)=>{
 
   }
 }
-export default connect(null,mapDispatchToProps)(Doctor)
+export default connect(mapStateToProps,mapDispatchToProps)(Doctor)
