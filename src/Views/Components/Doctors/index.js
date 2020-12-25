@@ -3,7 +3,11 @@ import { Icon, Button, Image , Card ,Grid,Modal ,Form,Input,Accordion} from 'sem
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {connect } from 'react-redux'
+import {setDoctor} from '../../../store/Actions/doctorAction'
+import {setPatients} from '../../../store/Actions/patientAction'
+
 import './index.css'
+
 
 function exampleReducer(state, action) {
   switch (action.type) {
@@ -16,8 +20,10 @@ function exampleReducer(state, action) {
   }
 }
 
-function Doctor() {
+function Doctor(props) {
+
   
+
   const [state, dispatch] = React.useReducer(exampleReducer, {
     open: false,
     dimmer: undefined,
@@ -27,9 +33,12 @@ function Doctor() {
   const [secondOpen, setSecondOpen] = useState(false)
   const [name,setName]=useState('')
   const [type,setType]=useState('')
-  const [patientName,setPatientName]=useState('')
+  const [firstName,setFirstName]=useState('')
+  const [lastName,setLastName]=useState('')
   const [disease,setDisease]=useState('')
   const [duration,setDuration]=useState('')
+  const [birthDate,setBirth]=useState('')
+  const [gender,setGender]=useState('')
   const [image,setImage]=useState('')
   const [patientList,setPatientList]=useState([])
   const [colors,setColors]=useState(['#e0eff6','#fcf5db', '#f9edef','#fcf5db','#eeebf4','#ebf3e8','#ebf3e8'])
@@ -59,7 +68,6 @@ function Doctor() {
           color:colors[Math.floor(Math.random()*8)]
         },      
   ])
-  
   const addDetails=function () {
     const temp=[...doctorList]
     temp.push({
@@ -72,23 +80,34 @@ function Doctor() {
     setName('')
     setType('')
     dispatch({ type: 'CLOSE_MODAL', dimmer: 'blurring' })
+// redux
+    props.setDoctor(doctorList)
+    
   }
 
   const addPatient=function () {
     const temp=[...patientList]
     temp.push({
-      name:patientName,
+      Fname:firstName,
+      Lname:lastName,
       disease:disease,
       duration:duration,
+      birthDate:birthDate,
+      gender:gender,
       image:image, 
     })
     setPatientList(temp)
-    setPatientName('')
+    setFirstName('')
+    setLastName('')
     setDisease('')
     setDuration('')
+    setBirth('')
+    setGender('')
     setImage('')
     setSecondOpen(false)
     setFirstOpen(false)
+    // redux
+    props.setPatients(patientList)
   }
   return(
       <div> 
@@ -139,13 +158,33 @@ function Doctor() {
             <Modal.Header>Patient Details</Modal.Header>
             <Modal.Content>
               <Form>
+               <Form.Group widths='equal'>
+                  <Form.Field>
+                    <label>First Name</label>
+                    <Input placeholder='Enter First Name' onChange={(e)=>setFirstName(e.target.value)} />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Last Name</label>
+                    <Input placeholder='Enter Last Name' onChange={(e)=>setLastName(e.target.value)} />
+                  </Form.Field>
+               </Form.Group>
+               <Form.Group widths='equal'>
                 <Form.Field>
-                  <label>Name</label>
-                  <Input placeholder='Enter Full Name' onChange={(e)=>setPatientName(e.target.value)} />
-                </Form.Field>
-                <Form.Field>
-                  <label>Disease</label>
-                  <Input placeholder='Enter Disease Name' onChange={(e)=>setDisease(e.target.value)}/>
+                      <label>Date Of Birth</label>
+                      <Input type='date' onChange={(e)=>setBirth(e.target.value)}/>
+                  </Form.Field>
+                  <Form.Field>
+                      <label>Gender</label>
+                      <select onChange={(e)=>setGender(e.target.value)}>
+                        <option></option>
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select> 
+                  </Form.Field>
+               </Form.Group>
+               <Form.Field>
+                    <label>Disease</label>
+                    <Input placeholder='Enter Disease Name' onChange={(e)=>setDisease(e.target.value)}/>
                 </Form.Field>
                 <Form.Field>
                   <label>Disease Duration</label>
@@ -174,6 +213,7 @@ function Doctor() {
               onClose={() => setSecondOpen(false)}
               open={secondOpen}
               size= 'tiny'
+              style={{marginTop:'4%'}}
             >
               <Modal.Header>Enter Payment Details</Modal.Header>
               <Modal.Content>
@@ -259,10 +299,13 @@ function Doctor() {
     )
 }
 
-export default Doctor
-// const mapDispatchToProps=(dispatch)=>{
-//   return{
-//       setDoctor:(doctorList)=>dispatch(setDoctor(doctorList)) 
-//   }
-// }
-// export default connect(null,mapDispatchToProps)(Doctor)
+// export default Doctor
+
+const mapDispatchToProps=(dispatch)=>{
+  return{
+      setDoctor:doctors=>dispatch(setDoctor(doctors)) ,
+      setPatients:patients=>dispatch(setPatients(patients)) 
+
+  }
+}
+export default connect(null,mapDispatchToProps)(Doctor)

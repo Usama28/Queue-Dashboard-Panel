@@ -17,12 +17,12 @@ function App() {
   
   return (
     <div className="App">
-      {/* <Provider store={store}> */}
+      <Provider store={store}>
           {!userValue ? <RouterFunc user={user}/> : 
           <Router>
               <Dashboard />
           </Router>}
-     {/* </Provider> */}
+     </Provider>
     </div>
   );
 }
